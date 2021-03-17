@@ -51,8 +51,7 @@ $ ORG_ID=03ph8a2z468tl2k
 $ ORG_NAME="Frontline"
 $ ORG2_ID=03ph8a2z1sn57b6
 $ ORG2_NAME="Knowledge"
-$ python chrome_policy_api_qs.py --org_id=$ORG_ID --org_name="$OR
-G_NAME" --compare --org2_id=$ORG2_ID --org2_name="$ORG2_NAME"
+$ python chrome_policy_api_qs.py --org_id=$ORG_ID --org_name="$ORG_NAME" --compare --org2_id=$ORG2_ID --org2_name="$ORG2_NAME"
 
 Unique to [Knowledge]:
          chrome.users.EnrollPermission {'deviceEnrollPermission': 'ALLOW_TO_ENROLL_DEVICES_ENUM_ALLOW_RE_ENROLL'}
