@@ -1,26 +1,74 @@
 # chrome-policy-api-quickstart
 
 Simple script to pull policies via Chrome Policy API  
-Leverages google-api-python-client for credential/token handling and OAuth flow  
+Leverages google-api-python-client for credential/token handling and OAuth flow.  
   
   
 ## Getting Started
 
-![Screenshot 2021-03-14 4 45 07 PM](https://user-images.githubusercontent.com/3968473/111058792-e25ba980-84e4-11eb-88a0-8bb392d3a2d0.png)
+```shellscript
+$ python3 -m venv chrome-policy-api-test
 
-![Screenshot 2021-03-14 4 48 27 PM](https://user-images.githubusercontent.com/3968473/111058815-29e23580-84e5-11eb-831c-32751f2b4ce3.png)
+$ source chrome-policy-api-test/bin/activate
 
-![Screenshot 2021-03-14 4 50 18 PM](https://user-images.githubusercontent.com/3968473/111058852-64e46900-84e5-11eb-84dd-ef89e84c6fd3.png)
+$ pip install google-api-python-client
 
-![Screenshot 2021-03-14 4 58 50 PM](https://user-images.githubusercontent.com/3968473/111059026-97429600-84e6-11eb-9f6a-3fb5f4a891ab.png)
+$ pip install google-auth-oauthlib
+```
 
+## OAuth 2.0 Access to Google APIs
+
+The script leverages the google-api-python-client and google-auth-oauthlib libraries to authenticate for API access.
+The script will expect and load a credentials.json file created and downloaded via instructions: [here](https://developers.google.com/identity/protocols/oauth2)
+After creating the cloud project on the domain, and creating OAuth credentials then download them into the script directory.
+
+## Sourcing OrgUnit IDs
+
+The customers.policies.resolve takes an OrgUnit (OU) ID as a parameter.
+These IDs can be sourced from the admin console by selecting an OU from the Organizational Unit sidebar at the [device setting page](https://admin.google.com/ac/chrome/settings/user)
+After selecting the OU link from the left-hand column, the URL will have an "org=" argument which contains the OU ID.
+For example, https://admin.google.com/ac/chrome/settings/user?org=03ph8a2z468tl2k  
 
 ## Sample Output
   
 >Single OU  
 
-![Screenshot 2021-03-14 4 59 56 PM](https://user-images.githubusercontent.com/3968473/111059049-b93c1880-84e6-11eb-8405-02f08bbf6009.png)
+```shellscript
+$ ORG_ID=03ph8a2z468tl2k
+$ ORG_NAME="Frontline"
+$ python chrome_policy_api_qs.py --org_id=$ORG_ID --org_name=$ORG_NAME
+Non-default policies for [Frontline]:
+         chrome.users.GoogleCast {'enableMediaRouter': False}
+         chrome.users.SecondaryGoogleAccountSignin {'allowedDomainsForApps': ['finelder.com']}
+         chrome.users.PromotionalTabsEnabled {'promotionalTabsEnabled': False}
+         chrome.users.ShowAccessibilityOptionsInSystemTrayMenu {'showAccessibilityOptionsInSystemTrayMenu': 'TRUE'}
+```
 
 >Compare two OUs  
 
-![Screenshot 2021-03-14 5 00 46 PM](https://user-images.githubusercontent.com/3968473/111059068-d5d85080-84e6-11eb-8775-09473dc0fba7.png)
+```shellscript
+$ ORG_ID=03ph8a2z468tl2k
+$ ORG_NAME="Frontline"
+$ ORG2_ID=03ph8a2z1sn57b6
+$ ORG2_NAME="Knowledge"
+$ python chrome_policy_api_qs.py --org_id=$ORG_ID --org_name="$OR
+G_NAME" --compare --org2_id=$ORG2_ID --org2_name="$ORG2_NAME"
+
+Unique to [Knowledge]:
+         chrome.users.EnrollPermission {'deviceEnrollPermission': 'ALLOW_TO_ENROLL_DEVICES_ENUM_ALLOW_RE_ENROLL'}
+         chrome.users.Screenshot {'disableScreenshots': True}
+
+In both [Frontline] & [Knowledge]:
+        chrome.users.GoogleCast:
+                [Frontline]:  {'enableMediaRouter': False}
+                [Knowledge]:  {'enableMediaRouter': False}
+        chrome.users.SecondaryGoogleAccountSignin:
+                [Frontline]:  {'allowedDomainsForApps': ['finelder.com']}
+                [Knowledge]:  {'allowedDomainsForApps': ['finelder.com']}
+        chrome.users.PromotionalTabsEnabled:
+                [Frontline]:  {'promotionalTabsEnabled': False}
+                [Knowledge]:  {'promotionalTabsEnabled': False}
+        chrome.users.ShowAccessibilityOptionsInSystemTrayMenu:
+                [Frontline]:  {'showAccessibilityOptionsInSystemTrayMenu': 'TRUE'}
+                [Knowledge]:  {'showAccessibilityOptionsInSystemTrayMenu': 'TRUE'}
+ ```
