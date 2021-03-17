@@ -18,15 +18,15 @@ $ pip install google-auth-oauthlib
 
 ## OAuth 2.0 Access to Google APIs
 
-The script leverages the google-api-python-client and google-auth-oauthlib libraries to authenticate for API access.
-The script will expect and load a credentials.json file created and downloaded via instructions: [here](https://developers.google.com/identity/protocols/oauth2)
-After creating the cloud project on the domain, and creating OAuth credentials then download them into the script directory.
+The script leverages the google-api-python-client and google-auth-oauthlib libraries to authenticate for API access.  
+The script will expect and load a credentials.json file created and downloaded via instructions: [here](https://developers.google.com/identity/protocols/oauth2)  
+After creating the cloud project on the domain, and creating OAuth credentials then download them into the script directory.  
 
 ## Sourcing OrgUnit IDs
 
-The customers.policies.resolve takes an OrgUnit (OU) ID as a parameter.
-These IDs can be sourced from the admin console by selecting an OU from the Organizational Unit sidebar at the [device setting page](https://admin.google.com/ac/chrome/settings/user)
-After selecting the OU link from the left-hand column, the URL will have an "org=" argument which contains the OU ID.
+The customers.policies.resolve takes an OrgUnit (OU) ID as a parameter.  
+These IDs can be sourced from the admin console by selecting an OU from the Organizational Unit sidebar at the [device setting page](https://admin.google.com/ac/chrome/settings/user)  
+After selecting the OU link from the left-hand column, the URL will have an "org=" argument which contains the OU ID.  
 For example, https://admin.google.com/ac/chrome/settings/user?org=03ph8a2z468tl2k  
 
 ## Sample Output
