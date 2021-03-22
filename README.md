@@ -1,5 +1,7 @@
 # chrome-policy-api-quickstart
 
+**This is not an officially supported Google product**
+
 Simple script to pull policies via Chrome Policy API  
 Leverages google-api-python-client for credential/token handling and OAuth flow.  
   
